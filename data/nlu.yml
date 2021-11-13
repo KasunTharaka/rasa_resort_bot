@@ -1,0 +1,100 @@
+version: "2.0"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: need_information
+  examples: |
+    - i want to know details
+- intent: need_resort_places
+  examples: |
+    - what are the resort locations
+- intent: place_reservation
+  examples: |
+    - place reservation
+    - want reservation
+- intent: confim_reservation
+  examples: |
+    - yes i am sure, place the reservation
+    - confirm
+- intent: give_reservation_details
+  examples: |
+    - my name is [kasun](user_name) and phone number is [0771236718](user_phone_number)
+    - name [kasun](user_name) phone number [0771236718](user_phone_number)
+    - my name is [kasun](user_name)
+    - [kasun](user_name)
+    - [kasun](user_name) [0771236718](user_phone_number)
+    - [10](number_of_persons)
+    - [10](number_of_persons) persons
+    - [2021-08-02](check_in_date)
+    - checkin date is [2021-05-12](check_in_date)
+    - [2021-08-02](check_out_date)
+    - checkout date is [2021-05-12](check_out_date)
+    - [A](package)
+    - [B](package) package
+    - [kasun](user_name)
+    - [43545435435](user_phone_number)
+    - [10](number_of_persons)
+    - [2021-09-07](check_in_date)
+    - [2021-05-12](check_out_date)
+    - [j](package)
+    - [a](package)
+- intent: get_price
+  examples: |
+    - what is the price?
+    - can i know the price?
+    - price?
+    - price
+- intent: stop_giving_reservation_details
+  examples: |
+    - no need reservation
+    - i don't want the reservation
+    - change my mind

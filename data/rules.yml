@@ -1,0 +1,35 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Tell price
+  steps:
+  - intent: get_price
+  - action: action_tell_price
+
+- rule: Activate Reservation Form
+  steps:
+  - intent: place_reservation
+  - action: reservation_form
+  - active_loop: reservation_form
+
+- rule: Submit Reservation Form
+  condition:
+  - active_loop: reservation_form
+  steps:
+    - action: reservation_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_reservation_form_details
+    - action: utter_confirm_reservation

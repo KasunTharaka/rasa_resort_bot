@@ -1,0 +1,45 @@
+user: Hi
+Machine: Hi
+User: want to know about details
+Machine: Which resort location
+User: give resort location
+Machine: give details about specific resort
+User: need to make reservation
+Machine: needs to get info
+    - dates
+    - user name
+    - phone number
+    - number of persons of rooms
+    - how long
+User: give info
+Machine: availability for those dates
+    - dates not available: try to suggest new dates or get new dates
+    - date available: (continue) Display reservation info and ask to confirm
+User:
+    - confirms: yes
+        Machine: display resort rules, ask user to agree
+        user: 
+        - agree
+            Machine: place the reservation staff will confirm by a call
+        - disagree
+            Machine: ask to cancel
+
+        
+    - deny: no
+        Machine: ask for reason, do you need to change any info
+        User:
+            - need change:
+                Machine: let the change
+            - just cancel the reservation:
+                Machine: ok good bye
+
+
+from_fileds:
+
+- resort location
+- check_in_date
+- check_out_date
+- number_of_persons
+- package
+- user_name
+- user_phone_number

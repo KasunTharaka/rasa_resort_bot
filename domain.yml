@@ -1,0 +1,160 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- give_reservation_details:
+    use_entities: true
+- get_price:
+    use_entities: true
+- place_reservation:
+    use_entities: true
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- need_information:
+    use_entities: true
+- confim_reservation:
+    use_entities: true
+- give_details:
+    use_entities: true
+- give_number_of_persons:
+    use_entities: true
+- stop_giving_reservation_details:
+    use_entities: true
+entities:
+- check_in_date
+- check_out_date
+- number_of_persons
+- package
+- user_name
+- user_phone_number
+slots:
+  user_name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  user_phone_number:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  resort_location:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - mathara
+    - nuwara eliya
+    - sigiriya
+  number_of_persons:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
+  check_in_date:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  check_out_date:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  package:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - a
+    - b
+    - c
+  price:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_want_to_know_informations:
+  - text: I can provide you any infomation needed
+  utter_give_information:
+  - text: These are information(add some package details from facebook, and resort locations)
+  utter_ask_user_details:
+  - text: What is your name and the phone number
+  utter_confirm_reservation:
+  - text: Can you confirm place the reservation for {number_of_persons}?
+  utter_reservation_placed:
+  - text: Hi {user_name} Reservation placed
+  utter_reservation_not_placed:
+  - text: Hi {user_name} Reservation not placed
+  utter_ask_user_name:
+  - text: What is your name?
+  utter_ask_user_phone_number:
+  - text: What is your phone number?
+  utter_ask_number_of_persons:
+  - text: How many persons?
+  utter_ask_check_in_date:
+  - text: What is the check in date?
+  utter_ask_check_out_date:
+  - text: What is the check out date?
+  utter_ask_package:
+  - text: What package do you select?
+  utter_reservation_form_details:
+  - text: 'These are the reservation details we recieved name - {user_name} phone number - {user_phone_number} Number of persons - {number_of_persons} Checkin date - {check_in_date} Checkout date - {check_out_date} Package - {package} '
+  utter_confirm_cancelation:
+  - text: Do you want to exit from making a reservation?
+  utter_resort_places:
+  - text: We have resort in Mathara, Nuwara Eliya and Sigiriya
+actions:
+- action_tell_price
+- validate_reservation_form
+forms:
+  reservation_form:
+    required_slots:
+      check_in_date:
+      - entity: check_in_date
+        type: from_entity
+      check_out_date:
+      - entity: check_out_date
+        type: from_entity
+      number_of_persons:
+      - entity: number_of_persons
+        type: from_entity
+      package:
+      - entity: package
+        type: from_entity
+      user_name:
+      - entity: user_name
+        type: from_entity
+      user_phone_number:
+      - entity: user_phone_number
+        type: from_entity
+e2e_actions: []

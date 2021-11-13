@@ -1,0 +1,85 @@
+version: "2.0"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+# - story: reserve path 1
+#   steps: 
+#   - intent: need_information
+#   - action: utter_give_information
+#   - intent: place_reservation
+#   - action: utter_ask_user_details
+#   - intent: give_details
+#     entities:
+#     - user_name: "kasun"
+#     - phone_number: "3243243453"
+#   - action: utter_ask_number_of_persons
+#   - intent: give_number_of_persons
+#     entities:
+#     - number_of_persons: 10
+#   - action: utter_confirm_reservation
+#   - checkpoint: confirm_or_deny_reservation
+  
+- story: reserve path 1
+  steps: 
+  - intent: need_information
+  - action: utter_give_information
+  
+- story: User want to interupt giving reservation details
+  steps: 
+  - intent: place_reservation
+  - action: reservation_form
+  - active_loop: reservation_form
+  - intent: stop_giving_reservation_details
+  - action: utter_confirm_cancelation
+  - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+
+- story: Confirm reservation
+  steps:
+  # - intent: give_reservation_details
+  # - action: utter_reservation_form_details
+  - action: utter_confirm_reservation
+  - checkpoint: confirm_or_deny_reservation
+
+
+- story: user confirm reservation
+  steps:
+  - checkpoint: confirm_or_deny_reservation
+  - or:
+    - intent: confim_reservation
+    - intent: affirm
+  - action: utter_reservation_placed
+
+- story: user denied reservation
+  steps:
+  - checkpoint: confirm_or_deny_reservation
+  - intent: deny
+  - action: utter_reservation_not_placed
