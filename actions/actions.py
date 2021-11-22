@@ -58,6 +58,15 @@ class ValidateReservationForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_reservation_form"
 
+
+    def date_validate(date_text):
+        try:
+            datetime.datetime.strptime(date_text, '%Y-%m-%d')
+            return True
+        except ValueError:
+            # raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+            return False
+
     def validate_package(
         self, 
         slot_value: Any,
@@ -81,10 +90,17 @@ class ValidateReservationForm(FormValidationAction):
         domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+
         
         current_date = datetime.today()
         check_in_date_string = slot_value
         print ("slot values "+str(slot_value))
+
+        valid = self.date_validate(check_in_date_string)
+        if(valid):
+            dispatcher.utter_message(text="Invalid date format")
+            return {"check_in_date": None}
+
         check_in_date = datetime.fromisoformat(check_in_date_string)
         date_diff = (check_in_date - current_date).days
 
@@ -105,6 +121,12 @@ class ValidateReservationForm(FormValidationAction):
         print ("slot values"+str(slot_value))
         check_in_date_string = tracker.get_slot("check_in_date")
         print(check_in_date_string)
+
+        valid = self.date_validate(slot_value)
+        if(valid):
+            dispatcher.utter_message(text="Invalid date format")
+            return {"check_in_date": None}
+
         if(check_in_date_string != None):
             check_in_date = datetime.fromisoformat(check_in_date_string)
             check_out_date = datetime.fromisoformat(slot_value)
@@ -128,6 +150,9 @@ class ValidateReservationForm(FormValidationAction):
         tracker: Tracker,
         domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
+        if slot_value.isdigit() == False:
+            dispatcher.utter_message(text="Number persons is invalid")
+            return {"number_of_persons": None}
         number_of_persons = int(slot_value)
         if number_of_persons > 25 :
             dispatcher.utter_message(text="We only support 25 people")
@@ -135,10 +160,4 @@ class ValidateReservationForm(FormValidationAction):
         
         return {"number_of_persons": slot_value}
 
-    def date_validate(date_text):
-        try:
-            datetime.datetime.strptime(date_text, '%Y-%m-%d')
-            return True
-        except ValueError:
-            # raise ValueError("Incorrect data format, should be YYYY-MM-DD")
-            return False
+    
