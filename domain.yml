@@ -1,149 +1,151 @@
 version: '2.0'
-config:
-  store_entities_as_slots: true
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- give_reservation_details:
-    use_entities: true
-- get_price:
-    use_entities: true
-- place_reservation:
-    use_entities: true
-- greet:
-    use_entities: true
-- goodbye:
-    use_entities: true
-- affirm:
-    use_entities: true
-- deny:
-    use_entities: true
-- bot_challenge:
-    use_entities: true
-- need_information:
-    use_entities: true
-- confim_reservation:
-    use_entities: true
-- give_details:
-    use_entities: true
-- give_number_of_persons:
-    use_entities: true
-- stop_giving_reservation_details:
-    use_entities: true
+- give_resort_location
+- give_phone_number
+- give_date
+- need_information
+- give_reservation_details
+- affirm
+- place_reservation
+- get_price
+- give_number_of_persons
+- confim_reservation
+- greet
+- intent
+- goodbye
+- deny
+- bot_challenge
+- give_details
+- stop_giving_reservation_details
+- mood_great
+- mood_unhappy
+- need_resort_places
 entities:
-- check_in_date
-- check_out_date
+- date
+- give_resort_location
 - number_of_persons
 - package
+- resort_location
 - user_name
 - user_phone_number
 slots:
   user_name:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   user_phone_number:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   resort_location:
-    type: rasa.shared.core.slots.CategoricalSlot
-    initial_value: null
-    auto_fill: true
+    type: categorical
     influence_conversation: true
     values:
     - mathara
     - nuwara eliya
     - sigiriya
   number_of_persons:
-    type: rasa.shared.core.slots.FloatSlot
-    initial_value: null
-    auto_fill: true
+    type: float
     influence_conversation: true
     max_value: 1.0
     min_value: 0.0
   check_in_date:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   check_out_date:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   package:
-    type: rasa.shared.core.slots.CategoricalSlot
-    initial_value: null
-    auto_fill: true
+    type: categorical
     influence_conversation: true
     values:
     - a
     - b
     - c
   price:
-    type: rasa.shared.core.slots.FloatSlot
-    initial_value: null
-    auto_fill: true
+    type: float
     influence_conversation: true
     max_value: 1.0
     min_value: 0.0
   requested_slot:
-    type: rasa.shared.core.slots.UnfeaturizedSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: false
 responses:
   utter_greet:
-  - text: Hey! How are you?
+  - text: ආයුබෝවන් !!! ඔබව සාදරයෙන් පිළිගන්නවා.
+  - text: ආයුබෝවන් !!! අප ආයතනයට ඔබව සාදරයෙන් පිළිගන්නවා.
+  - text: හෙලෝ, අපි ඔබව සාදරයෙන් පිළිගනිමු..
   utter_goodbye:
-  - text: Bye
+  - text: ඔබට සුභ දවසක්.
+  - text: ස්තූතියි, ඔබට සුභ දවසක්.
+  - text: අප හා සම්බන්ධවූවාට ස්තුතී. ඔබට සුභ දවසක්.
   utter_iamabot:
-  - text: I am a bot, powered by Rasa.
+  - text: මම ඔබගේ ස්වයංක්‍රිය සහකරු.
+  - text: මම බොට් කෙනෙක්ය.
+  - text: මම බොට් කෙනෙක්ය. කෙසේද ඔබට සහාය වන්නේ ?
+  - text: මම ඔබගේ ස්වයංක්‍රිය පාරිභෝගික සහකරු.
+  - text: මම බොට් කෙනෙකි. ඔබට අවශ්‍ය සහය කුමක්ද ?
   utter_want_to_know_informations:
-  - text: I can provide you any infomation needed
+  - text: ඔබට දැනගැනීමට අවශ්‍ය තොරතුරු මොනවාද ?
+  - text: ඔබට අපෙන් දැනගැනීමට අවශ්‍ය මොනවාද ?
+  - text: ඔබට දැනගැනීමට අවශ්‍ය සියලු තොරතුරැ මට සැපයිය හැක.
   utter_give_information:
-  - text: These are information(add some package details from facebook, and resort locations)
+  - text: අපගේ නිවාඩු නිකේතන මාතර, නුවර එළිය සහා සීගිරිය යන ප්‍රදේශ වල පවතී. එම නිවාඩු නිකෙතනයන්හි පැකේජ මිල ගණන් පහත පරිදි වේ. (සියලු ගාස්තු එක් පුද්ගලයෙක් සඳහා එක් රැයකට අදාල වේ.) A පැකේජය - රු.3000.00 B පැකේජය - රු.4000.00 C පැකේජය - රු.5000.00
   utter_ask_user_details:
-  - text: What is your name and the phone number
+  - text: ඔබගේ නම සහ ජංගම දුරකථන අංකය සඳහන් කරන්න.
   utter_confirm_reservation:
   - text: Can you confirm place the reservation for {number_of_persons}?
   utter_reservation_placed:
-  - text: Hi {user_name} Reservation placed
+  - text: හායි {user_name} පෙර වෙන්කිරීමේ ක්‍රියාවලිය සාර්ථකයි
   utter_reservation_not_placed:
-  - text: Hi {user_name} Reservation not placed
+  - text: හායි {user_name} පෙර වෙන්කිරීමේ ක්‍රියාවලිය තවම සම්පුර්ණ නොවුණි
   utter_ask_user_name:
-  - text: What is your name?
+  - text: ඔබගේ නම කුමක්ද ?
   utter_ask_user_phone_number:
-  - text: What is your phone number?
+  - text: ඔබගේ ජංගම දුරකථන අංකය කුමක්ද ?
   utter_ask_number_of_persons:
-  - text: How many persons?
+  - text: පැමිණීමට බලාපොරොත්තු වන පුද්ගලයන් ගණන කොපමණද ?
   utter_ask_check_in_date:
-  - text: What is the check in date?
-  utter_ask_check_out_date:
-  - text: What is the check out date?
+  - text: නිවාඩු නිකේතනයට පැමිණීමට බලාපොරොත්තු වන දිනය සහ බැහැර වීමට බලාපොරොත්තු වන දිනය කුමක්ද (plz give date yyyy-mm-dd format)?
+  utter_ask_resort_location:
+  - buttons:
+    - payload: /give_resort_location{{"resort_location":"mathara"}}
+      title: Mathara
+    - payload: /give_resort_location{{"resort_location":"sigiriya"}}
+      title: Sigiriya
+    - payload: /give_resort_location{{"resort_location":"nuwara eliya"}}
+      title: Nuwara Eliya
+    text: අපේ මොන resort එකද වෙන් කර ගන්නෙ ?
   utter_ask_package:
-  - text: What package do you select?
+  - text: ඔබ තෝරාගන්න පැකේජය කුමක්ද?
   utter_reservation_form_details:
-  - text: 'These are the reservation details we recieved name - {user_name} phone number - {user_phone_number} Number of persons - {number_of_persons} Checkin date - {check_in_date} Checkout date - {check_out_date} Package - {package} '
+  - text: 'පෙර වෙන්කිරීමේ ක්‍රියාවලියේදී ඔබ අපට සැපයු තොරතුරු පහත පරිදි වේ. නම - {user_name} ජංගම දුරකථන අංකය - {user_phone_number} පුද්ගලයන් ගණන - {number_of_persons} පැමිණෙන දිනය - {check_in_date} බැහැරවන දිනය - {check_out_date} තෝරාගත් පැකේජය - {package} තෝරාගත් නිවාඩු නිකේතනය - {resort_location} '
   utter_confirm_cancelation:
-  - text: Do you want to exit from making a reservation?
+  - text: ඔබට පෙර වෙන්කිරීමේ ක්‍රියාවලියෙන් ඉවත් වීමට අවශ්‍යද ?
   utter_resort_places:
-  - text: We have resort in Mathara, Nuwara Eliya and Sigiriya
+  - text: අපගේ නිවාඩු නිකේතන මාතර, නුවර එළිය සහා සීගිරිය යන ප්‍රදේශ වල පවතී.
+  utter_resort_policies:
+  - text: no food from outside(add things like that)
 actions:
 - action_tell_price
+- utter_confirm_reservation
+- utter_give_information
+- utter_greet
+- utter_reservation_form_details
+- utter_reservation_placed
+- utter_resort_policies
 - validate_reservation_form
 forms:
   reservation_form:
     required_slots:
       check_in_date:
-      - entity: check_in_date
+      - entity: date
+        role: checkin
         type: from_entity
       check_out_date:
-      - entity: check_out_date
+      - entity: date
+        role: checkout
         type: from_entity
       number_of_persons:
       - entity: number_of_persons
@@ -151,10 +153,12 @@ forms:
       package:
       - entity: package
         type: from_entity
+      resort_location:
+      - entity: resort_location
+        type: from_entity
       user_name:
       - entity: user_name
         type: from_entity
       user_phone_number:
       - entity: user_phone_number
         type: from_entity
-e2e_actions: []

@@ -2,99 +2,139 @@ version: "2.0"
 nlu:
 - intent: greet
   examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+    - හායි
+    - හෙලෝ
+    - හලෝ
+    - හෙලෝ කොහොමද
+    - ආයුබෝවන්
+    - සුභ උදැසනක්
+    - සුභ දහවලක්
+    - සුභ සන්ද්‍යාවක්
+    - සුභ රාත්‍රියක්
+    - සුභ දවසක්
 - intent: goodbye
   examples: |
-    - good afternoon
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+    - ස්තුතී
+    - බොහොම ස්තුතී
+    - ගොඩක් ස්තුතී
+    - බායි
+    - බයි බායි
+    - පසුව හමුවෙමු
+    - සුභ දවසක්
+    - ස්තුතී. සුභ දවසක්
+    - ස්තූතියි
 - intent: affirm
   examples: |
+    - ඔව්
+    - හරියටම හරි
+    - හරි
+    - නියමයි
+    - ඒක හරි
+    - ඒක නියමයි
+    - ඒක හොදයි වගේ
+    - හොදයි
+    - මං ඒකට කැමති
+    - කැමතියි
     - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
 - intent: deny
   examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+    - නෑ
+    - නැහැ
+    - නැත
+    - එපා
+    - මං කැමති නෑ
+    - මං අකමැති
+    - කොහෙත්ම නැහැ
+    - කොහෙත්ම එපා
 - intent: bot_challenge
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - ඔබ බොට් කෙනෙක්ද ?
+    - ඔයා බොට් කෙනෙක්ද ?
+    - ඔයා මිනිසෙක්ද ?
+    - මං කතා කරන්නේ මිනිසෙක්  සමඟද ?
+    - මං කතා කරන්නේ බොට් කෙනෙක් සමඟද ?
+    - ඔබ ස්වයංක්‍රියව ක්‍රියා කරන්නෙක්ද ?
+    - ඔයා චැට්බොට් කෙනෙක්ද ?
 - intent: need_information
   examples: |
-    - i want to know details
+    - මට තොරතුරු දැනගැනීමට අවශ්‍යයි
+    - මට තොරතුරු දැනගැනීමට උවමනායි
+    - මට විස්තර දැනගැනීමට අවශ්‍යයි
+    - කරුණාකර මට තොරතුරු එවන්න
+    - තොරතුරු එවන්න
+    - මට තරතර දනගනමට අවශයය
 - intent: need_resort_places
   examples: |
-    - what are the resort locations
+    - නිවාඩු නිකේතන පිහිටා ඇති ප්‍රදේශ මොනවාද
+    - නිවාඩු නිකේතන ඇති ප්‍රදේශ මොනවාද
+    - නිවාඩු නිකේතන තිබෙන ප්‍රදේශ මොනවාද
+    - නිවාඩු නිකේතන තිබෙන්නේ කොහෙද
 - intent: place_reservation
   examples: |
-    - place reservation
-    - want reservation
+    - මට වෙන් කරගැනීමට අවශ්‍යයි
+    - මට පෙර වෙන් කරගැනීමට අවශ්‍යයි
+    - මට බුක් කිරීමට අවශ්‍යයි
+    - මට බුක් කරමට අවශයය
+    - මට බක කරමට අවශයය
 - intent: confim_reservation
   examples: |
-    - yes i am sure, place the reservation
-    - confirm
+    - ඔව් පෙර වෙන් කිරීම සිදු කරන්න
+    - සනාථයි
+    - ඔව් පෙර බුක් කිරීම සිදු කරන්න
+    - ඔව පර බුක් කරම සද කරනන
+- intent: give_date
+  examples: |
+    - [2021-08-02]{"entity": "date", "role": "checkin"} [2021-08-12]{"entity": "date", "role": "checkout"}
+    - පැමිණෙන දිනය [2021-05-12]{"entity": "date", "role": "checkin"} බැහැරවන දිනය [2021-05-14]{"entity": "date", "role": "checkout"}
+    - [2021-09-07]{"entity": "date", "role": "checkin"} ඉදන්  [2021-09-12]{"entity": "date", "role": "checkout"}
+    - from [2021-12-01]{"entity": "date", "role": "checkin"} [2021-12-11]{"entity": "date", "role": "checkout"}
+    - [2021-12-21]{"entity": "date", "role": "checkin"} ඉදන [2021-12-23]{"entity": "date", "role": "checkout"}
+    - [2021-12-21]{"entity": "date", "role": "checkin"} ඉදන [2021-12-23]{"entity": "date", "role": "checkout"}
+- intent: give_number_of_persons
+  examples: |
+    - [10](number_of_persons)
+    - පුද්ගලයන් [12](number_of_persons)
+    - ඔක්කොම [12](number_of_persons)
+    - [3](number_of_persons)
+    - [4](number_of_persons)
+- intent: give_phone_number
+  examples: |
+    - [0771236718](user_phone_number)
+    - [43545435435](user_phone_number)
+    - [43543543543](user_phone_number)
+    - [4354365465](user_phone_number)
 - intent: give_reservation_details
   examples: |
-    - my name is [kasun](user_name) and phone number is [0771236718](user_phone_number)
-    - name [kasun](user_name) phone number [0771236718](user_phone_number)
-    - my name is [kasun](user_name)
+    - මගේ නම [කසුන්](user_name) සහ දුරකථන අංකය [0771236718](user_phone_number)
+    - නම [කසුන්](user_name) දුරකථන අංකය [0771236718](user_phone_number)
+    - මගේ නම [කසුන්](user_name)
+    - [කසුන්](user_name)
+    - [කසුන්](user_name) [0771236718](user_phone_number)
     - [kasun](user_name)
-    - [kasun](user_name) [0771236718](user_phone_number)
-    - [10](number_of_persons)
-    - [10](number_of_persons) persons
-    - [2021-08-02](check_in_date)
-    - checkin date is [2021-05-12](check_in_date)
-    - [2021-08-02](check_out_date)
-    - checkout date is [2021-05-12](check_out_date)
     - [A](package)
-    - [B](package) package
-    - [kasun](user_name)
-    - [43545435435](user_phone_number)
-    - [10](number_of_persons)
-    - [2021-09-07](check_in_date)
-    - [2021-05-12](check_out_date)
-    - [j](package)
+    - [B](package) පැකේජය
+    - [c](package)
     - [a](package)
+    - [අමල](user_name)
+    - [c](package)
+    - [අමල](user_name)
+- intent: give_resort_location
+  examples: |
+    - [Mathara](resort_location) resort එක
+    - [Sigiriya](resort_location) නිවාඩු නිකේතනය
+    - [sigiriya](resort_location)
 - intent: get_price
   examples: |
-    - what is the price?
-    - can i know the price?
-    - price?
-    - price
+    - මිල කීයද ?
+    - ගාණ කීයද ?
+    - මට මිල දැනගැනීමට පුළුවන්ද ?
+    - මට ගාණ දැනගැනීමට පුළුවන්ද ?
+    - මිල ?
+    - ගාණ ?
+    - ගණ කයද ?
 - intent: stop_giving_reservation_details
   examples: |
-    - no need reservation
-    - i don't want the reservation
-    - change my mind
+    - පෙර වෙන්කිරීමක් අවශ්‍ය නැහැ
+    - මම පෙර වෙන් කිරීමට කැමති නැහැ
+    - මම තීරණය වෙනස් කළා
+    - බුක් කරන්න එපා

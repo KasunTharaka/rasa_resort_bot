@@ -32,6 +32,8 @@ from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 
+from datetime import datetime
+
 class ActionTellPrice(Action):
     def name(self) -> Text:
         return "action_tell_price"
@@ -70,3 +72,73 @@ class ValidateReservationForm(FormValidationAction):
             return {"package": None}
         
         return {"package": slot_value}
+    
+    def validate_check_in_date(
+        self, 
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+        
+        current_date = datetime.today()
+        check_in_date_string = slot_value
+        print ("slot values "+str(slot_value))
+        check_in_date = datetime.fromisoformat(check_in_date_string)
+        date_diff = (check_in_date - current_date).days
+
+        print('date diff'+str(date_diff))
+
+        if date_diff<0 :
+            dispatcher.utter_message(text="Checkin date is invalid")
+            return {"check_in_date": None}
+        
+        return {"check_in_date": slot_value}
+
+    def validate_check_out_date(
+        self, 
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print ("slot values"+str(slot_value))
+        check_in_date_string = tracker.get_slot("check_in_date")
+        print(check_in_date_string)
+        if(check_in_date_string != None):
+            check_in_date = datetime.fromisoformat(check_in_date_string)
+            check_out_date = datetime.fromisoformat(slot_value)
+
+            date_diff = (check_out_date - check_in_date).days
+
+            print('date diff'+str(date_diff))
+
+            if date_diff<0 :
+                dispatcher.utter_message(text="Checkout date is invalid")
+                return {"check_out_date": None}
+            
+            return {"check_out_date": slot_value}
+        else:
+            return {"check_out_date": slot_value}
+
+    def validate_number_of_persons(
+        self, 
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        number_of_persons = int(slot_value)
+        if number_of_persons > 25 :
+            dispatcher.utter_message(text="We only support 25 people")
+            return {"number_of_persons": None}
+        
+        return {"number_of_persons": slot_value}
+
+    def date_validate(date_text):
+        try:
+            datetime.datetime.strptime(date_text, '%Y-%m-%d')
+            return True
+        except ValueError:
+            # raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+            return False

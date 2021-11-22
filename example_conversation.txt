@@ -43,3 +43,13 @@ from_fileds:
 - package
 - user_name
 - user_phone_number
+
+restrat form 
+change form values
+
+
+මට තොරතුරු දැනගැනීමට අවශ්‍යයි
+මට බුක් කිරීමට අවශ්‍යයි
+2021-12-21 ඉදන් 2021-12-23
+අමල් 
+ගාණ කීයද ?

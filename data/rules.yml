@@ -32,4 +32,6 @@ rules:
     - slot_was_set:
       - requested_slot: null
     - action: utter_reservation_form_details
+    - action: utter_resort_policies
     - action: utter_confirm_reservation
+

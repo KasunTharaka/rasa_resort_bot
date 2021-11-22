@@ -1,51 +1,6 @@
 version: "2.0"
 
 stories:
-
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
-
-# - story: reserve path 1
-#   steps: 
-#   - intent: need_information
-#   - action: utter_give_information
-#   - intent: place_reservation
-#   - action: utter_ask_user_details
-#   - intent: give_details
-#     entities:
-#     - user_name: "kasun"
-#     - phone_number: "3243243453"
-#   - action: utter_ask_number_of_persons
-#   - intent: give_number_of_persons
-#     entities:
-#     - number_of_persons: 10
-#   - action: utter_confirm_reservation
-#   - checkpoint: confirm_or_deny_reservation
-  
 - story: reserve path 1
   steps: 
   - intent: need_information
@@ -69,6 +24,10 @@ stories:
   - action: utter_confirm_reservation
   - checkpoint: confirm_or_deny_reservation
 
+- story: give resort places
+  steps:
+  - intent: need_resort_places
+  - action: utter_resort_places
 
 - story: user confirm reservation
   steps:
@@ -83,3 +42,287 @@ stories:
   - checkpoint: confirm_or_deny_reservation
   - intent: deny
   - action: utter_reservation_not_placed
+
+- story: Restart chat
+  steps:
+  - intent: stop_giving_reservation_details
+  - action: utter_confirm_cancelation
+  - intent: affirm
+  - action: action_restart
+
+- story: interactive_story_happy_path_1_confirm_reservation
+  steps:
+  - intent: place_reservation
+  - action: reservation_form
+  - active_loop: reservation_form
+  - slot_was_set:
+    - requested_slot: check_in_date
+  - slot_was_set:
+    - check_out_date: '2021-12-12'
+  - slot_was_set:
+    - check_in_date: '2021-12-09'
+  - slot_was_set:
+    - requested_slot: number_of_persons
+  - slot_was_set:
+    - number_of_persons: '2'
+  - slot_was_set:
+    - number_of_persons: '2'
+  - slot_was_set:
+    - requested_slot: package
+  - slot_was_set:
+    - package: b
+  - slot_was_set:
+    - package: b
+  - slot_was_set:
+    - requested_slot: resort_location
+  - slot_was_set:
+    - resort_location: mathara
+  - slot_was_set:
+    - resort_location: mathara
+  - slot_was_set:
+    - requested_slot: user_name
+  - slot_was_set:
+    - user_name: nimal
+  - slot_was_set:
+    - user_name: nimal
+  - slot_was_set:
+    - requested_slot: user_phone_number
+  - slot_was_set:
+    - user_phone_number: '43535543'
+  - slot_was_set:
+    - user_phone_number: '43535543'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_reservation_form_details
+  - action: utter_resort_policies
+  - action: utter_confirm_reservation
+  - intent: confim_reservation
+  - action: utter_reservation_placed
+
+- story: interactive_story_happy_path_2_confirm_reservation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: need_information
+  - action: utter_give_information
+  - intent: place_reservation
+  - action: reservation_form
+  - active_loop: reservation_form
+  - slot_was_set:
+    - requested_slot: check_in_date
+  - slot_was_set:
+    - check_in_date: '2021-12-03'
+  - slot_was_set:
+    - requested_slot: check_out_date
+  - slot_was_set:
+    - check_out_date: '2021-12-23'
+  - slot_was_set:
+    - requested_slot: number_of_persons
+  - slot_was_set:
+    - number_of_persons: '4'
+  - slot_was_set:
+    - number_of_persons: '4'
+  - slot_was_set:
+    - requested_slot: package
+  - slot_was_set:
+    - package: c
+  - slot_was_set:
+    - package: c
+  - slot_was_set:
+    - requested_slot: resort_location
+  - slot_was_set:
+    - resort_location: mathara
+  - slot_was_set:
+    - resort_location: mathara
+  - slot_was_set:
+    - requested_slot: user_name
+  - slot_was_set:
+    - user_name: amal
+  - slot_was_set:
+    - user_name: amal
+  - slot_was_set:
+    - requested_slot: user_phone_number
+  - slot_was_set:
+    - user_phone_number: '343242342'
+  - slot_was_set:
+    - user_phone_number: '343242342'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_reservation_form_details
+  - action: utter_resort_policies
+  - action: utter_confirm_reservation
+  - intent: confim_reservation
+  - action: utter_reservation_placed
+
+- story: interactive_story_happy_path_3_confirm_reservation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: need_information
+  - action: utter_give_information
+  - intent: place_reservation
+  - action: reservation_form
+  - active_loop: reservation_form
+  - slot_was_set:
+    - requested_slot: check_in_date
+  - slot_was_set:
+    - check_in_date: '2021-12-03'
+  - slot_was_set:
+    - requested_slot: check_out_date
+  - slot_was_set:
+    - check_out_date: '2021-12-23'
+  - slot_was_set:
+    - requested_slot: number_of_persons
+  - intent: give_number_of_persons
+    entities:
+    - number_of_persons: '4'
+  - slot_was_set:
+    - number_of_persons: '4'
+  - slot_was_set:
+    - number_of_persons: '4'
+  - slot_was_set:
+    - requested_slot: package
+  - slot_was_set:
+    - package: c
+  - slot_was_set:
+    - package: c
+  - slot_was_set:
+    - requested_slot: resort_location
+  - slot_was_set:
+    - resort_location: mathara
+  - slot_was_set:
+    - resort_location: mathara
+  - slot_was_set:
+    - requested_slot: user_name
+  - slot_was_set:
+    - user_name: amal
+  - slot_was_set:
+    - user_name: amal
+  - slot_was_set:
+    - requested_slot: user_phone_number
+  - slot_was_set:
+    - user_phone_number: '343242342'
+  - slot_was_set:
+    - user_phone_number: '343242342'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_reservation_form_details
+  - action: utter_confirm_reservation
+  - action: utter_resort_policies
+  - intent: confim_reservation
+  - action: utter_reservation_placed
+
+
+- story: interactive_story_1
+  steps:
+  - intent: need_information
+  - action: utter_give_information
+  - intent: place_reservation
+  - action: reservation_form
+  - active_loop: reservation_form
+  - slot_was_set:
+    - requested_slot: check_in_date
+  - slot_was_set:
+    - check_out_date: '2021-12-23'
+  - slot_was_set:
+    - check_in_date: '2021-12-21'
+  - slot_was_set:
+    - requested_slot: number_of_persons
+  - slot_was_set:
+    - number_of_persons: '3'
+  - slot_was_set:
+    - number_of_persons: '3'
+  - slot_was_set:
+    - requested_slot: package
+  - slot_was_set:
+    - package: c
+  - slot_was_set:
+    - package: c
+  - slot_was_set:
+    - requested_slot: resort_location
+  - slot_was_set:
+    - resort_location: mathara
+  - slot_was_set:
+    - resort_location: mathara
+  - slot_was_set:
+    - requested_slot: user_name
+  - slot_was_set:
+    - user_name: අමල
+  - slot_was_set:
+    - user_name: අමල
+  - slot_was_set:
+    - requested_slot: user_phone_number
+  - slot_was_set:
+    - user_phone_number: '43543543543'
+  - slot_was_set:
+    - user_phone_number: '43543543543'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_reservation_form_details
+  - action: utter_resort_policies
+  - action: utter_confirm_reservation
+  - intent: confim_reservation
+  - action: utter_reservation_placed
+
+- story: interactive_story_1__ask_price
+  steps:
+  - intent: need_information
+  - action: utter_give_information
+  - intent: place_reservation
+  - action: reservation_form
+  - active_loop: reservation_form
+  - slot_was_set:
+    - requested_slot: check_in_date
+  - slot_was_set:
+    - check_out_date: '2021-12-23'
+  - slot_was_set:
+    - check_in_date: '2021-12-21'
+  - slot_was_set:
+    - requested_slot: number_of_persons
+  - slot_was_set:
+    - number_of_persons: '4'
+  - slot_was_set:
+    - number_of_persons: '4'
+  - slot_was_set:
+    - requested_slot: package
+  - slot_was_set:
+    - package: c
+  - slot_was_set:
+    - package: c
+  - slot_was_set:
+    - requested_slot: resort_location
+  - slot_was_set:
+    - resort_location: nuwara eliya
+  - slot_was_set:
+    - resort_location: nuwara eliya
+  - slot_was_set:
+    - requested_slot: user_name
+  - intent: get_price
+  - action: action_tell_price
+  - slot_was_set:
+    - price: 4000.0
+  - action: reservation_form
+  - slot_was_set:
+    - requested_slot: user_name
+  - slot_was_set:
+    - user_name: අමල
+  - slot_was_set:
+    - user_name: අමල
+  - slot_was_set:
+    - requested_slot: user_phone_number
+  - slot_was_set:
+    - user_phone_number: '4354365465'
+  - slot_was_set:
+    - user_phone_number: '4354365465'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_reservation_form_details
+  - action: utter_resort_policies
+  - action: utter_confirm_reservation
+  - intent: affirm
+  - action: utter_reservation_placed

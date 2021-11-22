@@ -1,0 +1,114 @@
+version: "2.0"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: need_information
+  examples: |
+    - i want to know details
+    - want details
+- intent: need_resort_places
+  examples: |
+    - what are the resort locations
+- intent: place_reservation
+  examples: |
+    - place reservation
+    - want reservation
+- intent: confim_reservation
+  examples: |
+    - yes i am sure, place the reservation
+    - confirm
+- intent: give_date
+  examples: |
+    - [2021-08-02]{"entity": "date", "role": "checkin"} [2021-08-12]{"entity": "date", "role": "checkout"}
+    - checkin date is [2021-05-12]{"entity": "date", "role": "checkin"} and checkout date is [2021-05-14]{"entity": "date", "role": "checkout"}
+    - [2021-09-07]{"entity": "date", "role": "checkin"} to [2021-09-12]{"entity": "date", "role": "checkout"}
+    - from [2021-12-01]{"entity": "date", "role": "checkin"} to [2021-12-11]{"entity": "date", "role": "checkout"}
+# - intent: give_checkout_date
+#   examples: |
+#     - [2021-08-02](check_out_date)
+#     - checkout date is [2021-05-12](check_out_date)
+#     - [2021-05-12](check_out_date)
+- intent: give_number_of_persons
+  examples: |
+    - [10](number_of_persons)
+    - [10](number_of_persons) persons
+- intent: give_phone_number
+  examples: |
+    - [0771236718](user_phone_number)
+    - [43545435435](user_phone_number)
+- intent: give_reservation_details
+  examples: |
+    - my name is [kasun](user_name) and phone number is [0771236718](user_phone_number)
+    - name [kasun](user_name) phone number [0771236718](user_phone_number)
+    - my name is [kasun](user_name)
+    - [kasun](user_name)
+    - [A](package)
+    - [B](package) package
+    - [c](package)
+    - [a](package)
+    
+- intent: give_resort_location
+  examples: |
+    - [Mathara](resort_location) resort
+    - [Sigiriya](resort_location)
+    - In [sigiriya](resort_location)
+- intent: get_price
+  examples: |
+    - what is the price?
+    - can i know the price?
+    - price?
+    - price
+- intent: stop_giving_reservation_details
+  examples: |
+    - no need reservation
+    - i don't want the reservation
+    - change my mind

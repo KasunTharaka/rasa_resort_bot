@@ -1,0 +1,151 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- give_reservation_details
+- greet
+- give_number_of_persons
+- give_date
+- give_resort_location
+- give_phone_number
+- place_reservation
+- confim_reservation
+- need_information
+- intent
+- get_price
+- goodbye
+- affirm
+- deny
+- bot_challenge
+- give_details
+- stop_giving_reservation_details
+- mood_great
+- mood_unhappy
+- need_resort_places
+entities:
+- date
+- give_resort_location
+- number_of_persons
+- package
+- resort_location
+- user_name
+- user_phone_number
+slots:
+  user_name:
+    type: text
+    influence_conversation: true
+  user_phone_number:
+    type: text
+    influence_conversation: true
+  resort_location:
+    type: categorical
+    influence_conversation: true
+    values:
+    - mathara
+    - nuwara eliya
+    - sigiriya
+  number_of_persons:
+    type: float
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
+  check_in_date:
+    type: text
+    influence_conversation: true
+  check_out_date:
+    type: text
+    influence_conversation: true
+  package:
+    type: categorical
+    influence_conversation: true
+    values:
+    - a
+    - b
+    - c
+  price:
+    type: float
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
+  requested_slot:
+    type: text
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_want_to_know_informations:
+  - text: I can provide you any infomation needed
+  utter_give_information:
+  - text: These are information(add some package details from facebook, and resort locations)
+  utter_ask_user_details:
+  - text: What is your name and the phone number
+  utter_confirm_reservation:
+  - text: Can you confirm place the reservation for {number_of_persons}?
+  utter_reservation_placed:
+  - text: Hi {user_name} Reservation placed
+  utter_reservation_not_placed:
+  - text: Hi {user_name} Reservation not placed
+  utter_ask_user_name:
+  - text: What is your name?
+  utter_ask_user_phone_number:
+  - text: What is your phone number?
+  utter_ask_number_of_persons:
+  - text: How many persons?
+  utter_ask_check_in_date:
+  - text: What is the checkin date and checkout date?
+  utter_ask_resort_location:
+  - buttons:
+    - payload: /give_resort_location{{"resort_location":"mathara"}}
+      title: Mathara
+    - payload: /give_resort_location{{"resort_location":"sigiriya"}}
+      title: Sigiriya
+    - payload: /give_resort_location{{"resort_location":"nuwara eliya"}}
+      title: Nuwara Eliya
+    text: What is the resort location?
+  utter_ask_package:
+  - text: What package do you select?
+  utter_reservation_form_details:
+  - text: 'These are the reservation details we recieved name - {user_name} phone number - {user_phone_number} Number of persons - {number_of_persons} Checkin date - {check_in_date} Checkout date - {check_out_date} Package - {package} '
+  utter_confirm_cancelation:
+  - text: Do you want to exit from making a reservation?
+  utter_resort_places:
+  - text: We have resort in Mathara, Nuwara Eliya and Sigiriya
+actions:
+- action_tell_price
+- utter_confirm_reservation
+- utter_give_information
+- utter_greet
+- utter_reservation_form_details
+- utter_reservation_placed
+- validate_reservation_form
+forms:
+  reservation_form:
+    required_slots:
+      check_in_date:
+      - entity: date
+        type: from_entity
+        role: checkin
+      check_out_date:
+      - entity: date
+        type: from_entity
+        role: checkout
+      number_of_persons:
+      - entity: number_of_persons
+        type: from_entity
+      package:
+      - entity: package
+        type: from_entity
+      resort_location:
+      - entity: resort_location
+        type: from_entity
+      user_name:
+      - entity: user_name
+        type: from_entity
+      user_phone_number:
+      - entity: user_phone_number
+        type: from_entity
